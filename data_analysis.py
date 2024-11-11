@@ -11,7 +11,8 @@ import matplotlib.font_manager as fm
 from konlpy.tag import Okt
 
 okt = Okt()
-os.makedirs('./figure', exist_ok=True)
+os.makedirs('./static/images', exist_ok=True)
+os.makedirs('./app', exist_ok=True)
 plt.rcParams["font.family"] = 'NanumGothic'
 
 
@@ -19,16 +20,6 @@ def location_analysis(df, config):
     """위치 데이터를 분석하여 빈도 그래프와 지도에 표시"""
     df['위치'] = df['위치'].str.replace(" ", "")
     location_counts = df['위치'].value_counts()
-    
-    # 위치별 빈도수 그래프 생성
-    plt.figure(figsize=(10, 6))
-    location_counts.sort_values(ascending=False).plot(kind='bar')
-    plt.title('위치별 빈도수')
-    plt.xlabel('위치')
-    plt.ylabel('빈도수')
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.savefig('./figure/location.jpg')
     
     # 위치별 빈도를 지도에 표시
     location_data = config['location_data']
@@ -44,6 +35,14 @@ def location_analysis(df, config):
                 fill_color='blue',
                 fill_opacity=0.6,
                 tooltip=f"{location}: {count}개"
+            ).add_to(m)
+
+            folium.map.Marker(
+                [lat, lon],
+                icon=folium.DivIcon(html=f"""
+                    <div style="font-size: 12pt; color: black; text-align: center; white-space: nowrap;">
+                        {location}: {count}개
+                    </div>""")
             ).add_to(m)
     m.save("./app/location_map.html")
 
@@ -77,7 +76,7 @@ def career_analysis(df):
     plt.xlabel('경력 (년)', fontsize=14)
     plt.ylabel('빈도수', fontsize=14)
     plt.tight_layout()
-    plt.savefig('./figure/career.jpg')
+    plt.savefig('./static/images/career.jpg')
 
 
 class TextPreProcessing:
@@ -142,7 +141,7 @@ def generate_circular_wordcloud(word_frequencies, width=300, height=300, circle_
     plt.figure(figsize=(8, 8))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis('off')
-    plt.savefig(f'./figure/{file_name}_wordcloud.jpg')
+    plt.savefig(f'./static/images/{file_name}_wordcloud.jpg')
 
 
 def plot_word_frequencies(word_list, word_counts, title, file_name):
@@ -153,7 +152,7 @@ def plot_word_frequencies(word_list, word_counts, title, file_name):
     plt.xlabel("단어")
     plt.xticks(rotation=0)
     plt.ylabel("빈도수")
-    plt.savefig(f'./figure/{file_name}_freq_bar_graph.jpg')
+    plt.savefig(f'./static/images/{file_name}_freq_bar_graph.jpg')
 
 
 def main():
