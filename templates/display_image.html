@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    {% for image_path in image_paths %}
+        <img src="{{ image_path }}" alt="{{ title }}" style="max-width: 100%; height: auto;">
+    {% endfor %}
+</body>
+</html>
