@@ -23,17 +23,14 @@ RUN chmod +x /usr/bin/google-chrome && \
     chmod +x /usr/src/chrome/chromedriver
 
 # 나눔고딕 폰트 설치
-wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip
-wget https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip
-unzip NanumFont_TTF_ALL.zip
-unzip NanumGothicCoding-2.5.zip
+RUN wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip
+RUN wget https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip
+RUN unzip NanumFont_TTF_ALL.zip
+RUN unzip NanumGothicCoding-2.5.zip
 
 # install system-wide (or ~/.local/share/fonts for user-wide)
-sudo mkdir -p /usr/share/fonts/truetype/nanum-gothic
-sudo mv *.ttf /usr/share/fonts/truetype/nanum-gothic
-
-# check
-fc-list | grep -i nanum
+RUN sudo mkdir -p /usr/share/fonts/truetype/nanum-gothic
+RUN sudo mv *.ttf /usr/share/fonts/truetype/nanum-gothic
 
 # 프로젝트 클론 및 의존성 설치
 RUN git clone https://github.com/yumemonzo/wanted_data_analysis.git
