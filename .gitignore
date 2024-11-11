@@ -77,7 +77,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-*.csv
-*.html
 data
-figure
+app
+static
