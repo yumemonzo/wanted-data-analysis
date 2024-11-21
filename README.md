@@ -13,17 +13,7 @@ docker run --net=host --ipc=host --name wanted_data_analysis -dit wanted_data_an
 
 ## Usage
 데이터 수집 및 분석 서버 실행 방법은 다음과 같습니다.
-1. 크롤링 실행  
-데이터 수집을 위해 ```crawling.py``` 스크립트를 실행합니다. 이는 ```config/crawling.yaml``` 설정 파일을 참조하여 수집할 데이터를 설정합니다.
-    ```bash
-    python3 crawling.py
-    ```
-2. 시각자료 생성  
-시각자료 생성을 위해 ```data_analysis.py``` 스크립트를 실행합니다. 이는 ```config/data_analysis.yaml``` 설정 파일을 참조하여 데이터 전처리를 진행합니다.
-    ```bash
-    python3 data_analysis.py
-    ```
-3. FastAPI 서버 실행  
+1. FastAPI 서버 실행  
 분석된 데이터를 시각화하는 웹 애플리케이션을 실행합니다. uvicorn 명령을 통해 FastAPI 서버를 실행하여 분석 결과를 웹에서 확인할 수 있습니다.
     ```bash
     uvicorn app:app --reload
